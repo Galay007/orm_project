@@ -6,5 +6,5 @@ mvn test
 ### Результаты тестов:
 
 <p align="left">
-  <img src="test_results.png" alt="Результаты веб-тестов" width="1000"/>
+  <img src="Test_results.png" alt="Результаты веб-тестов" width="1000"/>
 </p>
