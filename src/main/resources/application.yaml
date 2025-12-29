@@ -1,0 +1,7 @@
+server:
+  servlet:
+    context-path: /
+spring:
+  profiles:
+    active: ${MY_APP_PROFILE:dev}
+

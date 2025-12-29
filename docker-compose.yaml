@@ -1,0 +1,46 @@
+services:
+  db:
+    image: postgres:15
+    container_name: my-postgres
+    environment:
+      POSTGRES_DB: ${DB_NAME:-miphi}
+      POSTGRES_USER: ${DB_USER:-admin}
+      POSTGRES_PASSWORD: ${DB_PASS:-admin}
+    ports:
+      - "${DB_PORT:-5432}:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+#  app-test:
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
+#    restart: unless-stopped
+#    ports:
+#      - "${TEST_EXT_PORT:-8181}:${TEST_INTER_PORT:-8181}"
+#    environment:
+#      - TEST_INTER_PORT=8181
+#      - PROFILE=test
+
+#  app-dev:
+#    build:
+#      context: .
+#      dockerfile: Dockerfile
+#    restart: unless-stopped
+#    ports:
+#      - "${DEV_EXT_PORT:-8080}:${DEV_INTER_PORT:-8080}"
+#    environment:
+#      - DEV_INTER_PORT=8080
+#      - PROFILE=dev
+#      - DB_HOST=db
+#      - DB_PORT=5432
+#      - DB_NAME=${DB_NAME:-miphi}
+#      - DB_USER=${DB_USER:-admin}
+#      - DB_PASS=${DB_PASS:-admin}
+#    depends_on:
+#      - db
+#
+volumes:
+  postgres_data:
+
+
