@@ -1,9 +1,11 @@
 package com.example.ORM_project;
 
-import com.example.ORM_project.controller.ModuleController;
-import com.example.ORM_project.database.entity.Module;
+import com.example.ORM_project.controller.ReviewController;
+import com.example.ORM_project.database.entity.Review;
 import com.example.ORM_project.database.repository.CourseRepository;
-import com.example.ORM_project.dto.*;
+import com.example.ORM_project.database.repository.UserRepository;
+import com.example.ORM_project.dto.ReviewRequestDto;
+import com.example.ORM_project.dto.ReviewResponseDto;
 import com.example.ORM_project.enums.Role;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,35 +21,41 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ActiveProfiles("test")
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @Transactional
-public class ModuleRestApiTest {
+public class ReviewTest {
     @Autowired
-    private ModuleController moduleController;
+    private ReviewController ReviewController;
     @Autowired
     private CourseRepository courseRepository;
     @Autowired
     private TestDataFactory testDataFactory;
+    @Autowired
+    private UserRepository userRepository;
 
-    ResponseEntity<ModuleResponseDto> responseCreated = null;
+    ResponseEntity<ReviewResponseDto> responseCreated = null;
 
     @BeforeEach
     void sendRequest() {
         testDataFactory.createTestCourse(Role.TEACHER);
+        testDataFactory.createStudent();
 
         Long firstCourseId = courseRepository.findAll().get(0).getId();
+        Long firstStudentId  = userRepository.findByRole(Role.STUDENT).get(0).getId();
 
-        ModuleRequestDto moduleRequest = new ModuleRequestDto();
-        moduleRequest.setCourse_id(firstCourseId);
-        moduleRequest.setTitle("Test module title");
+        ReviewRequestDto reviewRequest = new ReviewRequestDto();
+        reviewRequest.setCourse_id(firstCourseId);
+        reviewRequest.setStudent_id(firstStudentId);
+        reviewRequest.setCreated_at("31.12.2025");
+        reviewRequest.setRating(5);
 
-        responseCreated = moduleController.create(moduleRequest);
-        System.out.println("BeforeEach создан module id: " + responseCreated.getBody().getId());
+        responseCreated = ReviewController.create(reviewRequest);
+        System.out.println("BeforeEach создан Review id: " + responseCreated.getBody().getId());
     }
 
     @Test
     @Order(1)
-    void testModuleCreatePositive() {
-        Module module = new Module();
-        ModuleResponseDto userResponse = responseCreated.getBody();
+    void testReviewCreatePositive() {
+        Review Review = new Review();
+        ReviewResponseDto userResponse = responseCreated.getBody();
         HttpStatusCode responseCode = responseCreated.getStatusCode();
 
         assertThat(responseCode.equals(HttpStatus.CREATED));
@@ -55,8 +63,8 @@ public class ModuleRestApiTest {
 
     @Test
     @Order(2)
-    void testModuleDeletePositive() {
-        ResponseEntity<String> responseEntity = moduleController.delete(responseCreated.getBody().getId());
+    void testReviewDeletePositive() {
+        ResponseEntity<String> responseEntity = ReviewController.delete(responseCreated.getBody().getId());
         HttpStatusCode responseCode = responseEntity.getStatusCode();
         responseCreated = null;
 
@@ -65,13 +73,13 @@ public class ModuleRestApiTest {
 
     @Test
     @Order(3)
-    void testModuleUpdatePositive() {
+    void testReviewUpdatePositive() {
         Long userIdToUpdate = responseCreated.getBody().getId();
 
-        ModuleRequestDto userForReplace = new ModuleRequestDto();
-        userForReplace.setTitle("Test Replace");
+        ReviewRequestDto userForReplace = new ReviewRequestDto();
+        userForReplace.setRating(10);
 
-        ResponseEntity<ModuleResponseDto> responseEntity = moduleController.update(userIdToUpdate, userForReplace);
+        ResponseEntity<ReviewResponseDto> responseEntity = ReviewController.update(userIdToUpdate, userForReplace);
         HttpStatusCode responseCode = responseEntity.getStatusCode();
 
         assertThat(responseCode.equals(HttpStatus.OK));
@@ -79,12 +87,11 @@ public class ModuleRestApiTest {
 
     @Test
     @Order(4)
-    void testModuleGetByIdPositive() {
-        ResponseEntity<ModuleResponseDto> responseEntity = moduleController.getById(responseCreated.getBody().getId());
+    void testReviewGetByIdPositive() {
+        ResponseEntity<ReviewResponseDto> responseEntity = ReviewController.getById(responseCreated.getBody().getId());
         HttpStatusCode responseCode = responseEntity.getStatusCode();
 
         assertThat(responseCode.equals(HttpStatus.OK));
         assertThat(responseCreated.getBody().getId().equals(responseEntity.getBody().getId()));
     }
-
 }

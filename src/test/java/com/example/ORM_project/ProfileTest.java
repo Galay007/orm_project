@@ -22,7 +22,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ActiveProfiles("test")
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @Transactional
-public class ProfileRestApiTest {
+public class ProfileTest {
     @Autowired
     private ProfileController profileController;
     @Autowired

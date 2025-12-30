@@ -1,11 +1,11 @@
 package com.example.ORM_project;
 
-import com.example.ORM_project.controller.ReviewController;
-import com.example.ORM_project.database.entity.Review;
+import com.example.ORM_project.controller.EnrollmentController;
+import com.example.ORM_project.database.entity.Enrollment;
 import com.example.ORM_project.database.repository.CourseRepository;
 import com.example.ORM_project.database.repository.UserRepository;
-import com.example.ORM_project.dto.ReviewRequestDto;
-import com.example.ORM_project.dto.ReviewResponseDto;
+import com.example.ORM_project.dto.EnrollmentRequestDto;
+import com.example.ORM_project.dto.EnrollmentResponseDto;
 import com.example.ORM_project.enums.Role;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +21,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ActiveProfiles("test")
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @Transactional
-public class ReviewRestApiTest {
+public class EnrollmentTest {
     @Autowired
-    private ReviewController ReviewController;
+    private EnrollmentController EnrollmentController;
     @Autowired
     private CourseRepository courseRepository;
     @Autowired
@@ -31,7 +31,7 @@ public class ReviewRestApiTest {
     @Autowired
     private UserRepository userRepository;
 
-    ResponseEntity<ReviewResponseDto> responseCreated = null;
+    ResponseEntity<EnrollmentResponseDto> responseCreated = null;
 
     @BeforeEach
     void sendRequest() {
@@ -41,21 +41,20 @@ public class ReviewRestApiTest {
         Long firstCourseId = courseRepository.findAll().get(0).getId();
         Long firstStudentId  = userRepository.findByRole(Role.STUDENT).get(0).getId();
 
-        ReviewRequestDto ReviewRequest = new ReviewRequestDto();
-        ReviewRequest.setCourse_id(firstCourseId);
-        ReviewRequest.setStudent_id(firstStudentId);
-        ReviewRequest.setCreated_at("31.12.2025");
-        ReviewRequest.setRating(5);
+        EnrollmentRequestDto enrollmentRequest = new EnrollmentRequestDto();
+        enrollmentRequest.setCourse_id(firstCourseId);
+        enrollmentRequest.setStudent_id(firstStudentId);
+        enrollmentRequest.setEnroll_date("01.09.2025");
 
-        responseCreated = ReviewController.create(ReviewRequest);
-        System.out.println("BeforeEach создан Review id: " + responseCreated.getBody().getId());
+        responseCreated = EnrollmentController.create(enrollmentRequest);
+        System.out.println("BeforeEach создан Enrollment id: " + responseCreated.getBody().getId());
     }
 
     @Test
     @Order(1)
-    void testReviewCreatePositive() {
-        com.example.ORM_project.database.entity.Review Review = new Review();
-        ReviewResponseDto userResponse = responseCreated.getBody();
+    void testEnrollmentCreatePositive() {
+        Enrollment Enrollment = new Enrollment();
+        EnrollmentResponseDto userResponse = responseCreated.getBody();
         HttpStatusCode responseCode = responseCreated.getStatusCode();
 
         assertThat(responseCode.equals(HttpStatus.CREATED));
@@ -63,8 +62,8 @@ public class ReviewRestApiTest {
 
     @Test
     @Order(2)
-    void testReviewDeletePositive() {
-        ResponseEntity<String> responseEntity = ReviewController.delete(responseCreated.getBody().getId());
+    void testEnrollmentDeletePositive() {
+        ResponseEntity<String> responseEntity = EnrollmentController.delete(responseCreated.getBody().getId());
         HttpStatusCode responseCode = responseEntity.getStatusCode();
         responseCreated = null;
 
@@ -73,13 +72,13 @@ public class ReviewRestApiTest {
 
     @Test
     @Order(3)
-    void testReviewUpdatePositive() {
+    void testEnrollmentUpdatePositive() {
         Long userIdToUpdate = responseCreated.getBody().getId();
 
-        ReviewRequestDto userForReplace = new ReviewRequestDto();
-        userForReplace.setRating(10);
+        EnrollmentRequestDto userForReplace = new EnrollmentRequestDto();
+        userForReplace.setEnroll_date("30.09.2025");
 
-        ResponseEntity<ReviewResponseDto> responseEntity = ReviewController.update(userIdToUpdate, userForReplace);
+        ResponseEntity<EnrollmentResponseDto> responseEntity = EnrollmentController.update(userIdToUpdate, userForReplace);
         HttpStatusCode responseCode = responseEntity.getStatusCode();
 
         assertThat(responseCode.equals(HttpStatus.OK));
@@ -87,8 +86,8 @@ public class ReviewRestApiTest {
 
     @Test
     @Order(4)
-    void testReviewGetByIdPositive() {
-        ResponseEntity<ReviewResponseDto> responseEntity = ReviewController.getById(responseCreated.getBody().getId());
+    void testEnrollmentGetByIdPositive() {
+        ResponseEntity<EnrollmentResponseDto> responseEntity = EnrollmentController.getById(responseCreated.getBody().getId());
         HttpStatusCode responseCode = responseEntity.getStatusCode();
 
         assertThat(responseCode.equals(HttpStatus.OK));

@@ -1,7 +1,6 @@
 package com.example.ORM_project.service;
 
 import com.example.ORM_project.database.entity.Profile;
-import com.example.ORM_project.database.entity.User;
 import com.example.ORM_project.database.repository.ProfileRepository;
 import com.example.ORM_project.dto.ProfileRequestDto;
 import com.example.ORM_project.dto.ProfileResponseDto;

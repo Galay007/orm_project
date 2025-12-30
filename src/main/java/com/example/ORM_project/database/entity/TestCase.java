@@ -15,17 +15,20 @@ import java.util.Set;
 @AllArgsConstructor
 @Getter
 @Setter
-public class Test {
+public class TestCase {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false)
+    private String title;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "module_id", nullable = false)
     private Module module;
 
     @OneToMany(mappedBy = "test", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<TestSubmiission> testSubmiissions = new HashSet<>();
+    private Set<TestSubmission> testSubmissions = new HashSet<>();
 
     @OneToMany(mappedBy = "test", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Question> questions = new HashSet<>();

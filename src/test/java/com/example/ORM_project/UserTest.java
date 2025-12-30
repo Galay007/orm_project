@@ -20,7 +20,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 @ActiveProfiles("test")
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @Transactional
-public class UserRestApiTest {
+public class UserTest {
     @Autowired
     private UserController userController;
 

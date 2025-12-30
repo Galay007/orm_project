@@ -1,9 +1,9 @@
 package com.example.ORM_project;
 
-import com.example.ORM_project.controller.TagController;
+import com.example.ORM_project.controller.CategoryController;
 import com.example.ORM_project.database.entity.User;
-import com.example.ORM_project.dto.TagRequestDto;
-import com.example.ORM_project.dto.TagResponseDto;
+import com.example.ORM_project.dto.CategoryRequestDto;
+import com.example.ORM_project.dto.CategoryResponseDto;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,27 +17,27 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @ActiveProfiles("test")
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @Transactional
-public class TagRestApiTest {
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
+public class CategoryTest {
     @Autowired
-    private TagController tagController;
+    private CategoryController categoryController;
 
-    ResponseEntity<TagResponseDto> responseCreated = null;
+    ResponseEntity<CategoryResponseDto> responseCreated = null;
 
     @BeforeEach
     void sendRequest() {
-        TagRequestDto categoryRequest = new TagRequestDto();
+        CategoryRequestDto categoryRequest = new CategoryRequestDto();
         categoryRequest.setName("TEST");
-        responseCreated = tagController.create(categoryRequest);
-        System.out.println("BeforeEach создан tag id: " + responseCreated.getBody().getId());
+        responseCreated = categoryController.create(categoryRequest);
+        System.out.println("BeforeEach создан category id: " + responseCreated.getBody().getId());
     }
 
     @Test
     @Order(1)
     void testCategoryCreatePositive() {
         User user = new User();
-        TagResponseDto categoryResponse = responseCreated.getBody();
+        CategoryResponseDto categoryResponse = responseCreated.getBody();
         HttpStatusCode responseCode = responseCreated.getStatusCode();
 
         assertThat(responseCode.equals(HttpStatus.CREATED));
@@ -46,7 +46,7 @@ public class TagRestApiTest {
     @Test
     @Order(2)
     void testCategoryDeletePositive() {
-        ResponseEntity<String> responseEntity = tagController.delete(responseCreated.getBody().getId());
+        ResponseEntity<String> responseEntity = categoryController.delete(responseCreated.getBody().getId());
         HttpStatusCode responseCode = responseEntity.getStatusCode();
         responseCreated = null;
 
@@ -58,10 +58,10 @@ public class TagRestApiTest {
     void testCategoryUpdatePositive() {
         Long categoryIdToReplace = responseCreated.getBody().getId();
 
-        TagRequestDto userForReplace = new TagRequestDto();
+        CategoryRequestDto userForReplace = new CategoryRequestDto();
         userForReplace.setName("REPLACE");
 
-        ResponseEntity<TagResponseDto> responseEntity = tagController.update(categoryIdToReplace, userForReplace);
+        ResponseEntity<CategoryResponseDto> responseEntity = categoryController.update(categoryIdToReplace, userForReplace);
         HttpStatusCode responseCode = responseEntity.getStatusCode();
 
         assertThat(responseCode.equals(HttpStatus.OK));
@@ -70,18 +70,10 @@ public class TagRestApiTest {
     @Test
     @Order(4)
     void testCategoryGetByIdPositive() {
-        ResponseEntity<TagResponseDto> responseEntity = tagController.getById(responseCreated.getBody().getId());
+        ResponseEntity<CategoryResponseDto> responseEntity = categoryController.getById(responseCreated.getBody().getId());
         HttpStatusCode responseCode = responseEntity.getStatusCode();
 
         assertThat(responseCode.equals(HttpStatus.OK));
         assertThat(responseCreated.getBody().getId().equals(responseEntity.getBody().getId()));
-    }
-
-    @AfterEach
-    void deleteIfExists() {
-
-        if (responseCreated != null) {
-            tagController.delete(responseCreated.getBody().getId());
-        }
     }
 }

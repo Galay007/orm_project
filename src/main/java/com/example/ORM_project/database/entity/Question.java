@@ -28,8 +28,8 @@ public class Question {
     private TypeQuestion type;
 
     @ManyToOne
-    @JoinColumn(name = "test_id", nullable = false)
-    private Test test;
+    @JoinColumn(name = "test_case_id", nullable = false)
+    private TestCase test;
 
     @OneToMany(mappedBy = "question", cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<AnswerOption> answerOptions = new HashSet<>();

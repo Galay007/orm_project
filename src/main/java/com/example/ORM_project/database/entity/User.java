@@ -50,7 +50,7 @@ public class User {
     private Set<Review> reviews = new HashSet<>();
 
     @OneToMany(mappedBy = "student", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<TestSubmiission> testSubmiissions = new HashSet<>();
+    private Set<TestSubmission> testSubmissions = new HashSet<>();
 
 
 }

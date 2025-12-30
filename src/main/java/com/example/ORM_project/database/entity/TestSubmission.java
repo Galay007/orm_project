@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Getter
 @Setter
-public class TestSubmiission {
+public class TestSubmission {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -23,13 +23,13 @@ public class TestSubmiission {
     private Integer score;
 
     @Column(nullable = false)
-    private LocalDateTime takenAt;
+    private String taken_at;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "student_id", nullable = false)
     private User student;
 
     @ManyToOne
-    @JoinColumn(name = "test_id", nullable = false)
-    private Test test;
+    @JoinColumn(name = "test_case_id", nullable = false)
+    private TestCase test;
 }

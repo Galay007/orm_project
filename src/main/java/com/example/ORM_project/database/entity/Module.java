@@ -33,6 +33,6 @@ public class Module {
     private Set<Lesson> lessons = new HashSet<>();
 
     @OneToMany(mappedBy = "module", cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Test> tests = new HashSet<>();
+    private Set<TestCase> testCases = new HashSet<>();
 
 }

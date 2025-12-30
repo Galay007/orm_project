@@ -21,10 +21,11 @@ public class Submission {
     private Long id;
 
     @Column(nullable = false)
-    private LocalDateTime submittedAt;
+    private String submitted_at;
 
     @Column(nullable = false)
     private String content;
+
     private Integer score;
     private String feedback;
 
