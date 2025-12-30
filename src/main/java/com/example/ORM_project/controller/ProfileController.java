@@ -19,26 +19,26 @@ public class ProfileController {
     
     @PostMapping
     public ResponseEntity<ProfileResponseDto> create(@RequestBody ProfileRequestDto request) {
-        ProfileResponseDto createdCategory = profileService.createPofile(request);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdCategory);
+        ProfileResponseDto createdProfile = profileService.createPofile(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdProfile);
     }
 
     @GetMapping
     public ResponseEntity<List<ProfileResponseDto>> getAll() {
-        List<ProfileResponseDto> categories = profileService.getAllProfiles();
-        return ResponseEntity.ok(categories);
+        List<ProfileResponseDto> profiles = profileService.getAllProfiles();
+        return ResponseEntity.ok(profiles);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<ProfileResponseDto> getById(@PathVariable Long id) {
-        ProfileResponseDto category = profileService.getProfileById(id);
-        return ResponseEntity.ok(category);
+        ProfileResponseDto profile = profileService.getProfileById(id);
+        return ResponseEntity.ok(profile);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<ProfileResponseDto> update(@PathVariable Long id, @RequestBody ProfileRequestDto request) {
-        ProfileResponseDto updatedCategory = profileService.updateProfile(id, request);
-        return ResponseEntity.ok(updatedCategory);
+        ProfileResponseDto updatedProfile = profileService.updateProfile(id, request);
+        return ResponseEntity.ok(updatedProfile);
     }
 
     @DeleteMapping("/{id}")

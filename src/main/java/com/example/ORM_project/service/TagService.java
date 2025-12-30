@@ -26,8 +26,8 @@ public class TagService {
             throw new DuplicateException("Tag name " + request.getName() + " already exists.");
         }
         Tag newTag = tagMapper.toEntity(request);
-        Tag savedCategory = tagRepository.save(newTag);
-        return tagMapper.toResponseDto(savedCategory);
+        Tag savedTag = tagRepository.save(newTag);
+        return tagMapper.toResponseDto(savedTag);
     }
 
     @Transactional(readOnly = true)
@@ -54,8 +54,8 @@ public class TagService {
 
     @Transactional
     public void deleteTag(Long id) {
-        Tag categoryToDelete = findEntityById(id);
-        tagRepository.delete(categoryToDelete);
+        Tag tagToDelete = findEntityById(id);
+        tagRepository.delete(tagToDelete);
     }
 
     public Tag findEntityById(Long id) {

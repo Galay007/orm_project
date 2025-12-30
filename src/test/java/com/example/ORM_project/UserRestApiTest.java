@@ -43,19 +43,19 @@ public class UserRestApiTest {
     void testUserCreatePositive() {
         User user = new User();
         UserResponseDto userResponse = responseCreated.getBody();
-        HttpStatusCode resposeCode = responseCreated.getStatusCode();
+        HttpStatusCode responseCode = responseCreated.getStatusCode();
 
-        assertThat(resposeCode.equals(HttpStatus.CREATED));
+        assertThat(responseCode.equals(HttpStatus.CREATED));
     }
 
     @Test
     @Order(2)
     void testUserDeletePositive() {
         ResponseEntity<String> responseEntity = userController.delete(responseCreated.getBody().getId());
-        HttpStatusCode resposeCode = responseEntity.getStatusCode();
+        HttpStatusCode responseCode = responseEntity.getStatusCode();
         responseCreated = null;
 
-        assertThat(resposeCode.equals(HttpStatus.OK));
+        assertThat(responseCode.equals(HttpStatus.OK));
     }
 
     @Test
@@ -70,27 +70,18 @@ public class UserRestApiTest {
         userForReplace.setRole(Role.STUDENT);
 
         ResponseEntity<UserResponseDto> responseEntity = userController.update(userIdToUpdate, userForReplace);
-        HttpStatusCode resposeCode = responseEntity.getStatusCode();
+        HttpStatusCode responseCode = responseEntity.getStatusCode();
 
-        assertThat(resposeCode.equals(HttpStatus.OK));
+        assertThat(responseCode.equals(HttpStatus.OK));
     }
 
     @Test
     @Order(4)
     void testUserGetByIdPositive() {
         ResponseEntity<UserResponseDto> responseEntity = userController.getById(responseCreated.getBody().getId());
-        HttpStatusCode resposeCode = responseEntity.getStatusCode();
+        HttpStatusCode responseCode = responseEntity.getStatusCode();
 
-        assertThat(resposeCode.equals(HttpStatus.OK));
+        assertThat(responseCode.equals(HttpStatus.OK));
         assertThat(responseCreated.getBody().getId().equals(responseEntity.getBody().getId()));
     }
-
-//    @AfterEach
-//    void deleteIfExists() {
-//
-//        if (responseCreated != null) {
-//            userController.delete(responseCreated.getBody().getId());
-//        }
-//    }
-
 }

@@ -52,8 +52,8 @@ public class ProfileService {
 
     @Transactional
     public void deleteProfile(Long id) {
-        Profile categoryToDelete = findEntityById(id);
-        profileRepository.delete(categoryToDelete);
+        Profile profileToDelete = findEntityById(id);
+        profileRepository.delete(profileToDelete);
     }
 
     public Profile findEntityById(Long id) {

@@ -72,7 +72,7 @@ public class CourseRestApiTest {
         courseRequest.setTag_ids(Set.of(savedTag1.getId(), savedTag2.getId()));
 
         responseCreated = courseController.create(courseRequest);
-        System.out.println("BeforeEach создан пользователь id: " + responseCreated.getBody().getId());
+        System.out.println("BeforeEach создан course id: " + responseCreated.getBody().getId());
     }
 
     @Test
@@ -80,19 +80,19 @@ public class CourseRestApiTest {
     void testCourseCreatePositive() {
         Course course = new Course();
         CourseResponseDto userResponse = responseCreated.getBody();
-        HttpStatusCode resposeCode = responseCreated.getStatusCode();
+        HttpStatusCode responseCode = responseCreated.getStatusCode();
 
-        assertThat(resposeCode.equals(HttpStatus.CREATED));
+        assertThat(responseCode.equals(HttpStatus.CREATED));
     }
 
     @Test
     @Order(2)
     void testCourseDeletePositive() {
         ResponseEntity<String> responseEntity = courseController.delete(responseCreated.getBody().getId());
-        HttpStatusCode resposeCode = responseEntity.getStatusCode();
+        HttpStatusCode responseCode = responseEntity.getStatusCode();
         responseCreated = null;
 
-        assertThat(resposeCode.equals(HttpStatus.OK));
+        assertThat(responseCode.equals(HttpStatus.OK));
     }
 
     @Test
@@ -105,18 +105,18 @@ public class CourseRestApiTest {
         userForReplace.setDuration("2 years");
 
         ResponseEntity<CourseResponseDto> responseEntity = courseController.update(userIdToUpdate, userForReplace);
-        HttpStatusCode resposeCode = responseEntity.getStatusCode();
+        HttpStatusCode responseCode = responseEntity.getStatusCode();
 
-        assertThat(resposeCode.equals(HttpStatus.OK));
+        assertThat(responseCode.equals(HttpStatus.OK));
     }
 
     @Test
     @Order(4)
     void testCourseGetByIdPositive() {
         ResponseEntity<CourseResponseDto> responseEntity = courseController.getById(responseCreated.getBody().getId());
-        HttpStatusCode resposeCode = responseEntity.getStatusCode();
+        HttpStatusCode responseCode = responseEntity.getStatusCode();
 
-        assertThat(resposeCode.equals(HttpStatus.OK));
+        assertThat(responseCode.equals(HttpStatus.OK));
         assertThat(responseCreated.getBody().getId().equals(responseEntity.getBody().getId()));
     }
 

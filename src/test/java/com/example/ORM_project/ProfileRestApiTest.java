@@ -37,7 +37,7 @@ public class ProfileRestApiTest {
         newUser.setLastName("TESTOVKSKIY");
         newUser.setEmail("test@example.com");
         newUser.setRole(Role.TEACHER);
-        User savedUser =userRepository.save(newUser);
+        User savedUser = userRepository.save(newUser);
 
         ProfileRequestDto profileRequest = new ProfileRequestDto();
         profileRequest.setUser_id(savedUser.getId());
@@ -45,7 +45,7 @@ public class ProfileRestApiTest {
         profileRequest.setAvatarUrl("http://test.png");
 
         responseCreated = profileController.create(profileRequest);
-        System.out.println("BeforeEach создан пользователь id: " + responseCreated.getBody().getId());
+        System.out.println("BeforeEach создан profile id: " + responseCreated.getBody().getId());
     }
 
     @Test
@@ -53,19 +53,19 @@ public class ProfileRestApiTest {
     void testProfileCreatePositive() {
         Profile profile = new Profile();
         ProfileResponseDto userResponse = responseCreated.getBody();
-        HttpStatusCode resposeCode = responseCreated.getStatusCode();
+        HttpStatusCode responseCode = responseCreated.getStatusCode();
 
-        assertThat(resposeCode.equals(HttpStatus.CREATED));
+        assertThat(responseCode.equals(HttpStatus.CREATED));
     }
 
     @Test
     @Order(2)
     void testProfileDeletePositive() {
         ResponseEntity<String> responseEntity = profileController.delete(responseCreated.getBody().getId());
-        HttpStatusCode resposeCode = responseEntity.getStatusCode();
+        HttpStatusCode responseCode = responseEntity.getStatusCode();
         responseCreated = null;
 
-        assertThat(resposeCode.equals(HttpStatus.OK));
+        assertThat(responseCode.equals(HttpStatus.OK));
     }
 
     @Test
@@ -79,18 +79,18 @@ public class ProfileRestApiTest {
         userForReplace.setAvatarUrl("http://test.png");
 
         ResponseEntity<ProfileResponseDto> responseEntity = profileController.update(userIdToUpdate, userForReplace);
-        HttpStatusCode resposeCode = responseEntity.getStatusCode();
+        HttpStatusCode responseCode = responseEntity.getStatusCode();
 
-        assertThat(resposeCode.equals(HttpStatus.OK));
+        assertThat(responseCode.equals(HttpStatus.OK));
     }
 
     @Test
     @Order(4)
     void testProfileGetByIdPositive() {
         ResponseEntity<ProfileResponseDto> responseEntity = profileController.getById(responseCreated.getBody().getId());
-        HttpStatusCode resposeCode = responseEntity.getStatusCode();
+        HttpStatusCode responseCode = responseEntity.getStatusCode();
 
-        assertThat(resposeCode.equals(HttpStatus.OK));
+        assertThat(responseCode.equals(HttpStatus.OK));
         assertThat(responseCreated.getBody().getId().equals(responseEntity.getBody().getId()));
     }
 

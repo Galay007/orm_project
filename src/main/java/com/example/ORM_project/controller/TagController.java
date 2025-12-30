@@ -20,26 +20,26 @@ public class TagController {
 
     @PostMapping
     public ResponseEntity<TagResponseDto> create(@RequestBody TagRequestDto request) {
-        TagResponseDto createdCategory = tagService.createTag(request);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdCategory);
+        TagResponseDto createdTag = tagService.createTag(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdTag);
     }
 
     @GetMapping
     public ResponseEntity<List<TagResponseDto>> getAll() {
-        List<TagResponseDto> categories = tagService.getAllTags();
-        return ResponseEntity.ok(categories);
+        List<TagResponseDto> tags = tagService.getAllTags();
+        return ResponseEntity.ok(tags);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<TagResponseDto> getById(@PathVariable Long id) {
-        TagResponseDto category = tagService.getTagById(id);
-        return ResponseEntity.ok(category);
+        TagResponseDto tag = tagService.getTagById(id);
+        return ResponseEntity.ok(tag);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<TagResponseDto> update(@PathVariable Long id, @RequestBody TagRequestDto request) {
-        TagResponseDto updatedCategory = tagService.updateTag(id, request);
-        return ResponseEntity.ok(updatedCategory);
+        TagResponseDto updateTag = tagService.updateTag(id, request);
+        return ResponseEntity.ok(updateTag);
     }
 
     @DeleteMapping("/{id}")

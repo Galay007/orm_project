@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
 
 @Entity
 @Table(name = "enrollments")
@@ -20,8 +19,8 @@ public class Enrollment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private LocalDate enrollDate;
+    @Column(nullable = false, columnDefinition = "TEXT")
+    private String enroll_date;
 
     @Enumerated(EnumType.STRING)
     private StatusEnrollment status;
@@ -33,7 +32,4 @@ public class Enrollment {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "course_id", nullable = false)
     private Course course;
-
-
-
 }

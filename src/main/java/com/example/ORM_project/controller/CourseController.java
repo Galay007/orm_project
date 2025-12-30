@@ -20,26 +20,26 @@ public class CourseController {
 
     @PostMapping
     public ResponseEntity<CourseResponseDto> create(@RequestBody CourseRequestDto request) {
-        CourseResponseDto createdCategory = courseService.createCourse(request);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdCategory);
+        CourseResponseDto createdCourse = courseService.createCourse(request);
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdCourse);
     }
 
     @GetMapping
     public ResponseEntity<List<CourseResponseDto>> getAll() {
-        List<CourseResponseDto> categories = courseService.getAllCourses();
-        return ResponseEntity.ok(categories);
+        List<CourseResponseDto> courses = courseService.getAllCourses();
+        return ResponseEntity.ok(courses);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<CourseResponseDto> getById(@PathVariable Long id) {
-        CourseResponseDto category = courseService.getCourseById(id);
-        return ResponseEntity.ok(category);
+        CourseResponseDto course = courseService.getCourseById(id);
+        return ResponseEntity.ok(course);
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<CourseResponseDto> update(@PathVariable Long id, @RequestBody CourseRequestDto request) {
-        CourseResponseDto updatedCategory = courseService.updateCourse(id, request);
-        return ResponseEntity.ok(updatedCategory);
+        CourseResponseDto updatedCourse = courseService.updateCourse(id, request);
+        return ResponseEntity.ok(updatedCourse);
     }
 
     @DeleteMapping("/{id}")

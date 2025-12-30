@@ -30,8 +30,8 @@ public class CourseService {
 
     @Transactional(readOnly = true)
     public List<CourseResponseDto> getAllCourses() {
-        List<Course> profiles = courseRepository.findAll();
-        return profiles.stream()
+        List<Course> courses = courseRepository.findAll();
+        return courses.stream()
                 .map(courseMapper::toResponseDto)
                 .collect(Collectors.toList());
     }
@@ -52,8 +52,8 @@ public class CourseService {
 
     @Transactional
     public void deleteCourse(Long id) {
-        Course categoryToDelete = findEntityById(id);
-        courseRepository.delete(categoryToDelete);
+        Course courseToDelete = findEntityById(id);
+        courseRepository.delete(courseToDelete);
     }
 
     public Course findEntityById(Long id) {

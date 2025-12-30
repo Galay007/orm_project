@@ -22,11 +22,11 @@ public class Review {
     @Column(nullable = false)
     private Integer rating;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private String comment;
 
     @Column(nullable = false)
-    private LocalDateTime cratedAt;
+    private String created_at;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "student_id", nullable = false)

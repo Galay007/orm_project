@@ -30,7 +30,7 @@ public class TagRestApiTest {
         TagRequestDto categoryRequest = new TagRequestDto();
         categoryRequest.setName("TEST");
         responseCreated = tagController.create(categoryRequest);
-        System.out.println("BeforeEach создан пользователь id: " + responseCreated.getBody().getId());
+        System.out.println("BeforeEach создан tag id: " + responseCreated.getBody().getId());
     }
 
     @Test
@@ -47,10 +47,10 @@ public class TagRestApiTest {
     @Order(2)
     void testCategoryDeletePositive() {
         ResponseEntity<String> responseEntity = tagController.delete(responseCreated.getBody().getId());
-        HttpStatusCode resposeCode = responseEntity.getStatusCode();
+        HttpStatusCode responseCode = responseEntity.getStatusCode();
         responseCreated = null;
 
-        assertThat(resposeCode.equals(HttpStatus.OK));
+        assertThat(responseCode.equals(HttpStatus.OK));
     }
 
     @Test
@@ -62,18 +62,18 @@ public class TagRestApiTest {
         userForReplace.setName("REPLACE");
 
         ResponseEntity<TagResponseDto> responseEntity = tagController.update(categoryIdToReplace, userForReplace);
-        HttpStatusCode resposeCode = responseEntity.getStatusCode();
+        HttpStatusCode responseCode = responseEntity.getStatusCode();
 
-        assertThat(resposeCode.equals(HttpStatus.OK));
+        assertThat(responseCode.equals(HttpStatus.OK));
     }
 
     @Test
     @Order(4)
     void testCategoryGetByIdPositive() {
         ResponseEntity<TagResponseDto> responseEntity = tagController.getById(responseCreated.getBody().getId());
-        HttpStatusCode resposeCode = responseEntity.getStatusCode();
+        HttpStatusCode responseCode = responseEntity.getStatusCode();
 
-        assertThat(resposeCode.equals(HttpStatus.OK));
+        assertThat(responseCode.equals(HttpStatus.OK));
         assertThat(responseCreated.getBody().getId().equals(responseEntity.getBody().getId()));
     }
 
