@@ -29,13 +29,13 @@
 
 ## Стек технологий
 
-Java 21
-Spring Boot + Spring Web + Spring Data JPA
-PostgreSQL 15
-Hibernate (через Spring Data JPA)
-JUnit 5, @SpringBootTest, @Transactional, @TestPropertySource, REST Assured / MockMvc
-Maven (mvn test, профили dev, test)
-Docker + Docker Compose
+- Java 21
+- Spring Boot + Spring Web + Spring Data JPA
+- PostgreSQL 15
+- Hibernate (через Spring Data JPA)
+- JUnit 5
+- Maven (mvn test, профили dev, test)
+= Docker + Docker Compose
 
 ## Структура проекта
 ```
