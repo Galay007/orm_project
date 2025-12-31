@@ -96,7 +96,7 @@ public class TestDataFactory {
 
     public void createLesson() {
         createModule();
-
+var test = userRepository.findAll();
         Module firstModule = moduleRepository.findAll().get(0);
 
         Lesson newLesson = new Lesson();
